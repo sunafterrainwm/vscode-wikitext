@@ -1,0 +1,10 @@
+.vscode/**
+.vscode-test/**
+.gitignore
+.eslintrc.json
+.prettierrc.json
+tsconfig.json
+node_modules/**
+src/**
+syntaxes/*.yaml
+docs/**

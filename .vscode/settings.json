@@ -1,0 +1,10 @@
+{
+  "files.exclude": { "out": false },
+  "search.exclude": { "node_modules": true, "out": true },
+  "typescript.tsc.autoDetect": "off",
+  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/Vi-brance/tmLanguage-schema/master/tmlanguage.json": "*.tmLanguage.yaml"
+  }
+}

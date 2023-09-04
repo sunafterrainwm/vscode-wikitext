@@ -1,0 +1,49 @@
+{
+  "name": "vscode-wikitext",
+  "displayName": "wikitext",
+  "description": "一个为wikitext语法提供丰富语言特性支持的扩展",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.81.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./out/extention.js",
+  "license": "Apache-2.0",
+  "contributes": {
+    "languages": [
+      {
+        "id": "wikitext",
+        "aliases": [
+          "WikiText",
+          "wikitext",
+          "wiki"
+        ],
+        "extensions": [
+          ".wikitext",
+          ".wiki",
+          ".wt"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ]
+  },
+  "publisher": "Vi-brance",
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "tsc -b",
+    "watch": "tsc -b -w",
+    "test": "",
+    "lint": "eslint",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.7",
+    "@types/vscode": "^1.81.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "eslint": "^8.48.0",
+    "typescript": "^5.2.2"
+  }
+}
