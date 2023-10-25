@@ -35,7 +35,7 @@
     "build": "tsc -b",
     "watch": "tsc -b -w",
     "test": "",
-    "lint": "eslint",
+    "lint": "eslint ./src",
     "package": "vsce package"
   },
   "devDependencies": {
