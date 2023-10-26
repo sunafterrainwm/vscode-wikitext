@@ -9,7 +9,6 @@ export class SignatureCompletionProvider implements vscode.CompletionItemProvide
   ): vscode.ProviderResult<
     vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>
   > {
-    // console.log(`${context.triggerKind}`);
     if (context.triggerKind === vscode.CompletionTriggerKind.TriggerCharacter) {
       const completionItems: vscode.CompletionItem[] = [
         {
