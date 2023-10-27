@@ -9,9 +9,13 @@ import {
   workspace,
 } from 'vscode';
 import { HeadingCodeActionProvider } from './HeadingCodeActionProvider';
-import { MagicWordCompletionProvider } from './MagicWordCompletionProvider';
-import { SignatureCompletionProvider } from './SignatureCompletionProvider';
-import { FoldingProvider, HeadingRegex } from './foldingRange';
+import {
+  BehaviorSwitchesCompletionProvider,
+  ParserFunctionsCompletionProvider,
+  SignatureCompletionProvider,
+} from './completion';
+import { FoldingProvider as FoldingRangeProvider, HeadingRegex } from './foldingRange';
+import { ParserFunctionsHoverProvider } from './parserFunctionsHoverProvider';
 
 export const diagnosticCollection =
   languages.createDiagnosticCollection('wikitext');
@@ -45,12 +49,10 @@ function diagnoseDocument(document: TextDocument): Diagnostic[] {
 function createDiagnostic(context: ExtensionContext) {
   context.subscriptions.push(diagnosticCollection);
 
-  workspace.onDidChangeTextDocument(
-    (e: TextDocumentChangeEvent) => {
-      if (e.document.languageId !== 'wikitext') return;
-      diagnosticCollection.set(e.document.uri, diagnoseDocument(e.document));
-    }
-  );
+  workspace.onDidChangeTextDocument((e: TextDocumentChangeEvent) => {
+    if (e.document.languageId !== 'wikitext') return;
+    diagnosticCollection.set(e.document.uri, diagnoseDocument(e.document));
+  });
   workspace.onDidOpenTextDocument((e: TextDocument) => {
     if (e.languageId !== 'wikitext') return;
     diagnosticCollection.set(e.uri, diagnoseDocument(e));
@@ -64,7 +66,7 @@ function createDiagnostic(context: ExtensionContext) {
 export function activate(context: ExtensionContext) {
   const foldingRangeProvider = languages.registerFoldingRangeProvider(
     WIKITEXT_SELECTOR,
-    new FoldingProvider()
+    new FoldingRangeProvider()
   );
 
   const codeActionsProvider = languages.registerCodeActionsProvider(
@@ -72,11 +74,12 @@ export function activate(context: ExtensionContext) {
     new HeadingCodeActionProvider()
   );
 
-  const magicwordCompletionProvider = languages.registerCompletionItemProvider(
-    WIKITEXT_SELECTOR,
-    new MagicWordCompletionProvider(),
-    '_'
-  );
+  const behaviorSwitchesCompletionProvider =
+    languages.registerCompletionItemProvider(
+      WIKITEXT_SELECTOR,
+      new BehaviorSwitchesCompletionProvider(),
+      '_'
+    );
 
   const signatureCompletionProvider = languages.registerCompletionItemProvider(
     WIKITEXT_SELECTOR,
@@ -84,11 +87,25 @@ export function activate(context: ExtensionContext) {
     '~'
   );
 
+  const parserFunctionsCompletionProvider =
+    languages.registerCompletionItemProvider(
+      WIKITEXT_SELECTOR,
+      new ParserFunctionsCompletionProvider(),
+      '#'
+    );
+
+  const parserFunctionsHoverProvider = languages.registerHoverProvider(
+    WIKITEXT_SELECTOR,
+    new ParserFunctionsHoverProvider()
+  );
+
   context.subscriptions.push(
     foldingRangeProvider,
     codeActionsProvider,
-    magicwordCompletionProvider,
-    signatureCompletionProvider
+    behaviorSwitchesCompletionProvider,
+    signatureCompletionProvider,
+    parserFunctionsCompletionProvider,
+    parserFunctionsHoverProvider
   );
 
   createDiagnostic(context);

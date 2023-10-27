@@ -11,6 +11,10 @@
   ],
   "main": "./out/extention.js",
   "license": "Apache-2.0",
+  "publisher": "Vi-brance",
+  "extensionPack": [
+    "rowewilsonfrederiskholme.wikitext"
+  ],
   "contributes": {
     "languages": [
       {
@@ -29,7 +33,14 @@
       }
     ]
   },
-  "publisher": "Vi-brance",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vi-brance/vscode-wikitext.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Vi-brance/vscode-wikitext/issues"
+  },
+  "homepage": "https://github.com/Vi-brance/vscode-wikitext#README",
   "scripts": {
     "vscode:prepublish": "npm run build",
     "build": "tsc -b",
@@ -39,11 +50,16 @@
     "package": "vsce package"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.8",
     "@types/node": "^20.5.7",
     "@types/vscode": "^1.81.0",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.1",
     "eslint": "^8.48.0",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "mediawiki-parser": "^0.0.3"
   }
 }
