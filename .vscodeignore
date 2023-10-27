@@ -7,4 +7,6 @@ tsconfig.json
 node_modules/**
 src/**
 syntaxes/*.yaml
-docs/**
+
+!node_modules/js-yaml/**
+!node_modules/mediawiki-parser/**
